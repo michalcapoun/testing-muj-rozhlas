@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { config } from "dotenv";
 
-test("", async ({ page }) => {});
+console.log(process.env.EMAIL);
+console.log(process.env.PASSWORD);
+
+test("Should log in", async ({ page }) => {});
