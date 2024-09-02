@@ -1,0 +1,14 @@
+{
+  "name": "testing-muj-rozhlas",
+  "version": "1.0.0",
+  "description": "using playwright for smoke testing",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.46.1",
+    "@types/node": "^22.5.2"
+  }
+}
