@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../page-objects/login_page";
-import { timeStamp } from "console";
 
 const email = process.env.EMAIL;
 const password = process.env.PASSWORD;
