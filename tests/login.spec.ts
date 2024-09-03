@@ -10,12 +10,12 @@ if (!email || !password) {
 
 test("successful login", async ({ page }) => {
   const loginPage = new LoginPage(page);
-  const usernameError = await page
-    .locator("span.inp-fix__error")
-    .getByText("Pole E-mail je povinné");
-  const passwordError = await page
-    .locator("span.inp-fix__error")
-    .getByText("Pole Heslo je povinné");
+  const usernameError = await page.locator(
+    "//span[contains(text(),'Pole E-mail je povinné.')]"
+  );
+  const passwordError = await page.locator(
+    "//span[contains(text(),'Pole Heslo je povinné.')]"
+  );
 
   await loginPage.openMujRozhlas();
   await loginPage.fillUsername(email);
@@ -27,12 +27,12 @@ test("successful login", async ({ page }) => {
 
 test("empty inputs login", async ({ page }) => {
   const loginPage = new LoginPage(page);
-  const usernameError = await page
-    .locator("span.inp-fix__error")
-    .getByText("Pole E-mail je povinné");
-  const passwordError = await page
-    .locator("span.inp-fix__error")
-    .getByText("Pole Heslo je povinné");
+  const usernameError = await page.locator(
+    "//span[contains(text(),'Pole E-mail je povinné.')]"
+  );
+  const passwordError = await page.locator(
+    "//span[contains(text(),'Pole Heslo je povinné.')]"
+  );
 
   await loginPage.openMujRozhlas();
   await loginPage.clickLogin();
