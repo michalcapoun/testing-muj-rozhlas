@@ -19,11 +19,11 @@ test.beforeEach(async ({ page }) => {
     .toHaveURL("https://www.mujrozhlas.cz/user/logout/confirm");
 });
 
-test("Successful logout", async ({ page }) => {
+test("successful logout", async ({ page }) => {
   await page.locator('//button[@type="submit"]').click();
 });
 
-test("Cancelled logout", async ({ page }) => {
+test("cancelled logout", async ({ page }) => {
   await page.locator("#edit-cancel").click();
   await expect.soft(page).toHaveURL("https://www.mujrozhlas.cz/");
 });

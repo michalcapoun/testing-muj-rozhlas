@@ -8,7 +8,7 @@ if (!email || !password) {
   throw new Error("Environment variables EMAIL and PASSWORD must be set.");
 }
 
-test("Successful login", async ({ page }) => {
+test("successful login", async ({ page }) => {
   const loginPage = new LoginPage(page);
   const usernameError = await page
     .locator("span.inp-fix__error")
@@ -25,7 +25,7 @@ test("Successful login", async ({ page }) => {
   await loginPage.clickLogin();
 });
 
-test("Unsuccessful login", async ({ page }) => {
+test("empty inputs login", async ({ page }) => {
   const loginPage = new LoginPage(page);
   const usernameError = await page
     .locator("span.inp-fix__error")
