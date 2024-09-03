@@ -11,7 +11,7 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.registerLink = page.locator(".u-font-bold");
+    this.registerLink = page.locator('a.u-font-bold[href="/user/register"]');
     this.usernameInput = page.locator("#edit-name");
     this.passwordInput = page.locator("#edit-pass");
     this.loginButton = page.locator("//button[@type='submit']");
@@ -43,6 +43,7 @@ export class LoginPage {
   }
 
   async login(username: string, password: string) {
+    await this.page.goto(this.url);
     await this.fillUsername(username);
     await this.fillPassword(password);
     await this.clickLogin();

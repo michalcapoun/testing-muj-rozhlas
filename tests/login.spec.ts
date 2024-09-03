@@ -8,30 +8,50 @@ if (!email || !password) {
   throw new Error("Environment variables EMAIL and PASSWORD must be set.");
 }
 
-test("Login", async ({ page }) => {
+test("Successful login", async ({ page }) => {
   const loginPage = new LoginPage(page);
+  const usernameError = await page
+    .locator("span.inp-fix__error")
+    .getByText("Pole E-mail je povinné");
+  const passwordError = await page
+    .locator("span.inp-fix__error")
+    .getByText("Pole Heslo je povinné");
 
   await loginPage.openMujRozhlas();
   await loginPage.fillUsername(email);
   await loginPage.fillPassword(password);
+  await expect.soft(usernameError).not.toBeVisible();
+  await expect.soft(passwordError).not.toBeVisible();
   await loginPage.clickLogin();
 });
 
-test("Succesful logout", async ({ page }) => {
+test("Unsuccessful login", async ({ page }) => {
   const loginPage = new LoginPage(page);
+  const usernameError = await page
+    .locator("span.inp-fix__error")
+    .getByText("Pole E-mail je povinné");
+  const passwordError = await page
+    .locator("span.inp-fix__error")
+    .getByText("Pole Heslo je povinné");
 
-  await loginPage.login(email, password);
-  await page.locator('a[href="/user/logout"]').click();
-  await expect(page).toHaveURL("https://www.mujrozhlas.cz/user/logout/confirm");
-  await page.locator('//button[@type="submit"]').click();
+  await loginPage.openMujRozhlas();
+  await loginPage.clickLogin();
+  await expect.soft(usernameError).toBeVisible();
+  await expect.soft(passwordError).toBeVisible();
 });
 
-test("Cancelled logout", async ({ page }) => {
+test("register link", async ({ page }) => {
   const loginPage = new LoginPage(page);
 
-  await loginPage.login(email, password);
-  await page.locator('a[href="/user/logout"]').click();
-  await expect(page).toHaveURL("https://www.mujrozhlas.cz/user/logout/confirm");
-  await page.locator("#edit-cancel").click();
-  await expect(page).toHaveURL("https://www.mujrozhlas.cz/");
+  await loginPage.openMujRozhlas();
+  await loginPage.registerLink.click();
+  await expect.soft(page).toHaveURL("https://www.mujrozhlas.cz/user/register");
+});
+
+test("forgotten password link", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.openMujRozhlas();
+  await loginPage.forgottenPasswordLink.click();
+  await expect.soft(page).toHaveURL("https://www.mujrozhlas.cz/user/password");
 });
