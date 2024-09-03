@@ -8,6 +8,22 @@ if (!email || !password) {
   throw new Error("Environment variables EMAIL and PASSWORD must be set.");
 }
 
+test("profile page has all links", async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.login(email, password);
+
+  await expect.soft(page.locator("//a[@class='btn btn--md']")).toBeVisible();
+  await expect.soft(page.locator("//a[@href='/profil/upravit']")).toBeVisible();
+  await expect
+    .soft(page.locator("//p[@class='f-profile__links']//a[1]"))
+    .toBeVisible();
+  await expect.soft(page.locator("//a[@href='/profil/zrusit']")).toBeVisible();
+  await expect
+    .soft(page.locator("//a[normalize-space()='Odhlásit se']"))
+    .toBeVisible();
+});
+
 test("check link 'Upravit údaje' redirects to correct page and form has visible fields", async ({
   page,
 }) => {
