@@ -8,11 +8,13 @@ if (!email || !password) {
   throw new Error("Environment variables EMAIL and PASSWORD must be set.");
 }
 
-test("profile page has all links", async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.login(email, password);
+});
 
+test("profile page has all links", async ({ page }) => {
   await expect.soft(page.locator("//a[@class='btn btn--md']")).toBeVisible();
   await expect.soft(page.locator("//a[@href='/profil/upravit']")).toBeVisible();
   await expect
@@ -27,10 +29,6 @@ test("profile page has all links", async ({ page }) => {
 test("check link 'Upravit údaje' redirects to correct page and form has visible fields", async ({
   page,
 }) => {
-  const loginPage = new LoginPage(page);
-
-  await loginPage.login(email, password);
-
   await page.locator("//span[normalize-space()='Upravit údaje']").click();
   await expect(page).toHaveURL("https://www.mujrozhlas.cz/profil/upravit");
   await expect
@@ -52,10 +50,6 @@ test("check link 'Upravit údaje' redirects to correct page and form has visible
 });
 
 test("link 'Změnit nastavení' redirects to correct page", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-
-  await loginPage.login(email, password);
-
   await page
     .locator("//a[@href='/nastaveni']//span[@class='text-icon']")
     .click();
@@ -63,10 +57,6 @@ test("link 'Změnit nastavení' redirects to correct page", async ({ page }) => 
 });
 
 test("link 'Smazat účet' redirects to correct page", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-
-  await loginPage.login(email, password);
-
   await page
     .locator("//a[@href='/profil/zrusit']//span[@class='text-icon']")
     .click();
