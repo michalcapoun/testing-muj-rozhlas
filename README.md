@@ -1,2 +1,3 @@
 # testing-muj-rozhlas
-using playwright for smoke testing
+
+use of playwright for smoke testing
